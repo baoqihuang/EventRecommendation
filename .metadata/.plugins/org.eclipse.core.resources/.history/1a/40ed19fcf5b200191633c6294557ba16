@@ -1,0 +1,20 @@
+package external;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class TicketMasterClient {
+	private static final String HOST = "https://app.ticketmaster.com";
+	private static final String ENDPOINT = "/discovery/v2/events.json";
+	private static final String DEFAULT_KEYWORD = "event";
+	private static final String API_KEY = "AAu5PCmRMphPGRxKZyd00VRv6cq7606I";
+}

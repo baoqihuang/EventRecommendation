@@ -2,6 +2,7 @@ package rpc;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import db.DBConnection;
+import db.DBConnectionFactory;
+import entity.Item;
+import external.TicketMasterClient;
 
 /**
  * Servlet implementation class SearchItem
@@ -63,15 +69,39 @@ public class SearchItem extends HttpServlet {
 //		response.setContentType("application/json");
 //		PrintWriter writer = response.getWriter();
 		
-		JSONArray array = new JSONArray();
-			
+//		JSONArray array = new JSONArray();
+//			
+//		try {
+//			array.put(new JSONObject().put("username", "abcd"));
+//			array.put(new JSONObject().put("username", "1234"));
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		}
+//		RpcHelper.writeJsonArray(response, array);
+		double lat = Double.parseDouble(request.getParameter("lat"));
+		double lon = Double.parseDouble(request.getParameter("lon"));
+		String term = request.getParameter("term");
+		DBConnection connection = DBConnectionFactory.getConnection();
 		try {
-			array.put(new JSONObject().put("username", "abcd"));
-			array.put(new JSONObject().put("username", "1234"));
-		} catch (JSONException e) {
+			List<Item> items = connection.searchItems(lat, lon, term);
+			
+			JSONArray array = new JSONArray();
+			for (Item item : items) {
+				array.put(item.toJSONObject());
+			}
+			RpcHelper.writeJsonArray(response, array);
+		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			connection.close();
 		}
-		RpcHelper.writeJsonArray(response, array);
+//		TicketMasterClient client = new TicketMasterClient();
+//		List<Item> items = client.search(lat, lon, null);
+//		JSONArray array = new JSONArray();
+//		for (Item item : items) {
+//			array.put(item.toJSONObject());
+//		}
+//		RpcHelper.writeJsonArray(response, array);
 	}
 
 	/**
