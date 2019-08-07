@@ -1,0 +1,51 @@
+
+public class FactorCombination {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	  public List<List<Integer>> combinations(int target) {
+		    // Write your solution here
+		    List<List<Integer>> result = new ArrayList<List<Integer>>();
+		    if (target <= 1) {
+		      return result;
+		    }
+		    List<Integer> factors = new ArrayList<>();
+		    List<Integer> cur = new ArrayList<>();
+		    getFactors (target, factors);
+		    helper (result, cur, factors, target, 0);
+		    return result;
+		  }
+		  public void helper (List<List<Integer>> result, List<Integer> cur, List<Integer> factors, int remain, int index) {
+		    if (remain == 1 && cur.size() > 1) {
+		      result.add(new ArrayList<>(cur));
+		      return;
+		    }
+		    if (index == factors.size()) {
+		      return;
+		    }
+		    for (int i = 0; i <= maxPower(remain, factors.get(index)); i++) {
+		      int factor = factors.get(index);
+		      cur.add(factor);
+		      helper(result, cur, factors, remain / (int)Math.pow(factor, i), index + 1);
+		      cur.remove(cur.size() - 1);
+		    }
+		  }
+		  public int maxPower (int num, int factor) {
+		    int power = 0;
+		    while (num >= factor) {
+		      num /= factor;
+		      power++;
+		    }
+		    return power;
+		  }
+		  public void getFactors (int target, List<Integer> factors) {
+		    for (int i = target - 1; i >= 2; i--) {
+		      if (target % i == 0) {
+		        factors.add(i);
+		      }
+		    }
+		  }
+
+}
