@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,6 +37,15 @@ public class RecommendItem extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 //		response.setContentType("application/json");
 //		PrintWriter writer = response.getWriter();
+		// allow access only if session exists
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			response.setStatus(403);
+			return;
+		}
+
+		// optional
+		String userId = session.getAttribute("user_id").toString(); 
 		
 		JSONArray array = new JSONArray();
 		try {

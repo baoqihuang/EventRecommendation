@@ -18,6 +18,13 @@ import entity.Item.ItemBuilder;
 import external.TicketMasterClient;
 
 public class MongoDBConnection implements DBConnection {
+	private static MongoDBConnection instance;
+	public static DBConnection getInstance() {
+		if (instance == null) {
+			instance = new MongoDBConnection();
+		}
+		return instance;
+	}
 	private MongoClient mongoClient;
 	private MongoDatabase db;
 	
@@ -138,14 +145,50 @@ public class MongoDBConnection implements DBConnection {
 
 	@Override
 	public String getFullname(String userId) {
-		// TODO Auto-generated method stub
-		return null;
+		FindIterable<Document> iterable = db.getCollection("users").find(new Document("user_id", userId));
+		Document doc = iterable.first();
+		String firstName = doc.getString("first_name");
+		String lastName = doc.getString("last_name");
+		return firstName + " " + lastName;
 	}
 
 	@Override
 	public boolean verifyLogin(String userId, String password) {
-		// TODO Auto-generated method stub
-		return false;
+		FindIterable<Document> iterable = db.getCollection("users").find(eq("user_id", userId));
+		Document doc = iterable.first();
+		return doc.getString("password").equals(password);
 	}
+//	
+//	  @Override
+//	  public boolean registerUser(String userId, String password, String firstname, String lastname) {
+//	    FindIterable<Document> iterable = db.getCollection("users").find(eq("user_id", userId));
+//
+//	    if (iterable.first() == null) {
+//	      db.getCollection("users").insertOne(new Document().append("first_name", firstname)
+//	          .append("last_name", lastname).append("password", password).append("user_id", userId));
+//	      return true;
+//	    }
+//	    return false;
+//	  }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
