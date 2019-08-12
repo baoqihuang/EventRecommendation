@@ -179,13 +179,13 @@ public class TicketMasterClient {
 	}
 
 	
-	public static void main (String args[]) {
-		TicketMasterClient client = new TicketMasterClient();
-		List<Item> events = client.search(37.38, -122.08, null);
-		
-		for (Item event: events) {
-			System.out.println(event.toJSONObject());
-		}
-	}
+//	public static void main (String args[]) {
+//		TicketMasterClient client = new TicketMasterClient();
+//		List<Item> events = client.search(37.38, -122.08, null);
+//		
+//		for (Item event: events) {
+//			System.out.println(event.toJSONObject());
+//		}
+//	}
 	
 }

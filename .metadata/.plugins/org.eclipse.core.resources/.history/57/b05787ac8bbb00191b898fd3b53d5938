@@ -1,0 +1,72 @@
+import java.util.Comparator;
+import java.util.List;
+import java.util.PriorityQueue;
+
+public class MergeKSortedList {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	/*
+	 * Merge K sorted lists into one big sorted list in ascending order.
+
+Assumptions
+
+ListOfLists is not null, and none of the lists is null.
+	 */
+	
+	public static class ListNode {
+		public int value;
+	    public ListNode next;
+	    public ListNode(int value) {
+	      this.value = value;
+	      next = null;
+	    }
+	}
+//	public static class Entry {
+//		public int row;
+//		public int col;
+//		public int value;
+//		public Entry (int row, int col, int value) {
+//			this.row = row;
+//			this.col = col;
+//			this.value = value;
+//		}
+//	}
+	 
+	public static ListNode merge(List<ListNode> listOfLists) {
+	    // Write your solution here.
+		PriorityQueue<ListNode> minHeap = new PriorityQueue<>(11, new Comparator<ListNode>() {
+			@Override
+			public int compare (ListNode e1, ListNode e2) {
+				if (e1.value == e2.value) {
+					return 0;
+				}
+				return e1.value < e2.value ? -1 : 1;
+			}
+		});
+		//Initialized by add all the inner list's first element in to minHeap
+		for (int i = 0; i < listOfLists.size(); i++) {
+			minHeap.offer(listOfLists.get(i));
+		}
+		ListNode dummy = new ListNode(0);
+		ListNode cur = dummy;
+		while (!minHeap.isEmpty()) {
+			ListNode min = minHeap.remove();
+			cur.next = min;
+			cur = cur.next;
+			while (min.next != null && !minHeap.isEmpty() && min.next.value <= minHeap.peek().value) {
+				min = min.next;
+				cur.next = min;
+				cur = cur.next;
+			}
+			if (min.next != null) {
+				minHeap.offer(min.next);
+			}
+		}
+		return dummy.next;
+	}
+
+
+}

@@ -1,0 +1,19 @@
+
+public class lcaII {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	
+	public class TreeNodeP {
+		public int key;
+	    public TreeNodeP left;
+	    public TreeNodeP right;
+	    public TreeNodeP parent;
+	    public TreeNodeP(int key, TreeNodeP parent) {
+	    	this.key = key;
+	    	this.parent = parent;
+	    }
+	}
+}

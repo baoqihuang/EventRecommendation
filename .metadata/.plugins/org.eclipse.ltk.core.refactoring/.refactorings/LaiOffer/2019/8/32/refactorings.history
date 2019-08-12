@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;lcaII&apos; to &apos;LcaWithParentNode&apos;&#x0A;- Original project: &apos;LaiOffer&apos;&#x0A;- Original element: &apos;lcaII&apos;&#x0A;- Renamed element: &apos;LcaWithParentNode&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;lcaII&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;{lcaII.java[lcaII" matchStrategy="1" name="LcaWithParentNode" qualified="false" references="true" similarDeclarations="false" stamp="1565380917502" textual="false" version="1.0"/>
+</session>

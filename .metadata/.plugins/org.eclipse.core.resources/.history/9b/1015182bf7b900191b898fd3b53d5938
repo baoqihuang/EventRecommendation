@@ -1,0 +1,12 @@
+
+public class KthSmallestWith357 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	public long kth(int k) {
+	    // Write your solution here
+	}
+
+}

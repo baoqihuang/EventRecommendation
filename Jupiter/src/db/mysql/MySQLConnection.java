@@ -246,5 +246,25 @@ public class MySQLConnection implements DBConnection {
 		}
 		return false;
 	}
+	
+	@Override
+	public boolean registerUser(String userId, String password, String firstname, String lastname) {
+		if (conn == null) {
+			return false;
+		}
+		try {
+			String sql1 = "INSERT IGNORE INTO users VALUES(?, ?, ?, ?)";
+			PreparedStatement ps = conn.prepareStatement(sql1);
+			ps.setString(1, userId);
+			ps.setString(2, password);
+			ps.setString(3, firstname);
+			ps.setString(4, lastname);
+			return ps.executeUpdate() == 1;
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return false;
+	}
 
 }
